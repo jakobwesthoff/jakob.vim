@@ -1,0 +1,2 @@
+setlocal makeprg=make
+setlocal errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m

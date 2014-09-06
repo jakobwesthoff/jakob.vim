@@ -15,34 +15,21 @@ Bundle 'gmarik/vundle'
 Bundle "tpope/vim-sensible"
 
 " ... register Vundle bundles
-Bundle 'tobyS/vimtip'
+
 " Display trailing whitespaces
 Bundle 'jakobwesthoff/whitespacetrail'
 " Fancy snippet machine
-Bundle 'SirVer/ultisnips'
+" Bundle 'SirVer/ultisnips'
 " Nice title bar
-Bundle 'Lokaltog/vim-powerline'
-" Syntaxt checks
+" Bundle 'Lokaltog/vim-powerline'
+" Syntax checks
 Bundle 'scrooloose/syntastic'
 " Abbreviate and convenient substitute
 Bundle 'tpope/vim-abolish'
 " Solarized color scheme
 Bundle "altercation/vim-colors-solarized"
-" :Rename command and more shell commands
-Bundle "tpope/vim-eunuch"
 " Insert mode autocomplete management
 Bundle "ervandew/supertab"
-" Vmustache template engine, prerequisite for PDV
-Bundle "tobyS/vmustache"
-" PHP Documentor for VIM
-Bundle "tobyS/pdv"
-" New file skeletons
-Bundle "tobyS/skeletons.vim"
-" Maintains RST headings
-Bundle "tobyS/rst-headings.vim"
-
-" Testing framework for VIM scripts
-Bundle "inkarkat/runVimTests"
 
 " Re-indents pasted code
 Bundle 'sickill/vim-pasta'
@@ -51,60 +38,28 @@ Bundle 'sickill/vim-pasta'
 Bundle 'terryma/vim-expand-region'
 
 " Advanced Keyword completion
-" Deactivated temporarily to try fancy PHP autocomplete: Bundle 'szw/vim-kompleter'
+Bundle 'szw/vim-kompleter'
 
 " Pasting Gists from VIM
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 
-" Local development
-" Bundle "/home/dotxp/dev/VIM/pdv.git"
-" Bundle "/home/dotxp/dev/VIM/vmustache.git"
-" Bundle "/home/dotxp/dev/VIM/skeletons.git"
-" Bundle "/home/dotxp/dev/VIM/rst-headings.vim.git"
-
 " Approximate colorschemes
-" Seems to be not needed
-" Bundle 'godlygeek/csapprox'
-
-""""""""""""
-" Trying ...
-""""""""""""
-
-" Rewrap argument lists
-Bundle 'jakobwesthoff/argumentrewrap'
+" "Bundle 'godlygeek/csapprox'
 
 " Fuzzy search through project files
 Bundle 'kien/ctrlp.vim'
 
-" Background dispatching (e.g. PHPUnit)
-Bundle 'tpope/vim-dispatch'
-
-" Use PHPUnit as a compiler in VIM
-Bundle 'afternoon/vim-phpunit'
-
 " Advanced "f" motion for 2 characters
-Bundle 'goldfeld/vim-seek'
+" Bundle 'goldfeld/vim-seek'
 
 " See if that fixes YAML highlighting
 Bundle 'chase/vim-ansible-yaml'
 
-" Move arguments & argument text object "a"
-Bundle 'AndrewRadev/sideways.vim'
-
-" Required by phpcomplete-extended
-" Required building custom extension on your platform
-Bundle 'Shougo/vimproc.vim'
-" Semantical autocomplete for PHP finally?!?
-Bundle 'm2mdas/phpcomplete-extended'
-
-" Capture Ex command output in a scratch buffer
-Bundle 'tyru/capture.vim'
-
 " Required after Vundle did its job.
-filetype plugin indent on     " required!
+filetype plugin indent on
 
-" Automatically reload .vimrc if it is change
+" Automatically reload .vimrc if it has changed
 if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
 endif
@@ -113,13 +68,14 @@ endif
 " Standard settings
 """""""""""""""""""
 
-" Set numbers, sort casing, tabstops and such
-set number
+" Set tab handling defaults for every file, which does not provide overrides
+" Detailed information: http://vimcasts.org/episodes/tabs-and-spaces/
+" Default: Use 4 spaces for each tab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set nocompatible
+
 set nopaste
 set nohidden
 set nowrap
@@ -132,81 +88,100 @@ set smartcase
 " Infer the current case in insert completion
 set infercase
 
-" Set the mapleader and local map leader to <space>
-let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
+" Remap the <leader>-key to , instead of \
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim
+let mapleader = ","
+let maplocalleader = ","
 
 " Automatic indention and such around expressions/brackets
 set indentexpr=
 set smartindent
 
-" Do not highlight search results
-set nohlsearch
+" Use more sophistacted path completion featuring a menu on the status bar
+set wildmenu
+set wildmode=list:longest
 
 " Jump 5 lines when running out of the screen
 set scrolljump=5
 " Indicate jump out of the screen when 3 lines before end of the screen
 set scrolloff=3
 
-" Set the autocomplete style for files
-set wildmode=list:longest
+" Display a statusbar including the cursor position
+set ruler
+set laststatus=2
 
 " Deactivate original mode indicator, powerline does that
 set noshowmode
 
-" Cursor line in insert mode
+" Mark the current line of the cursor by underlining it (only in INSERT mode)
 autocmd InsertLeave * set nocursorline
 autocmd InsertEnter * set cursorline
 
-" Deactivate visual bell
+" Use visual representation of the bell, as there is no real one ;)
 set visualbell
+" Disable visual bell to stop screen from flashing and minimize the scroll lag
 set t_vb=
+" Ensure Vim uses a bigger block size for drawing text
 set ttyfast
 
-" ???
-set ofu=syntaxcomplete#Complete
+" Allow using the backspace and del keys for indentations, lineendings and
+" linestarts
+set backspace=indent,eol,start
+
 " Allow file inline modelines to provide settings
 set modeline
 
-" Set mapping for CSApprox
-" let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-" Set colors
-set t_Co=256
-
-syntax enable
-" let g:solarized_termcolors=256
-colorscheme solarized
-
-filetype plugin on
-filetype indent on
-
-" Restore line number and column if reentering a file after having edited it
-" at least once. For this to work .viminfo in the home dir has to be writable by the user.
-let g:restore_position_ignore = '.git/COMMIT_EDITMSG\|svn-commit.tmp'
-au BufReadPost * call RestorePosition()
-
-func! RestorePosition()
-    if exists("g:restore_position_ignore") && match(expand("%"), g:restore_position_ignore) > -1
-        return
-    endif
-
-    if line("'\"") > 1 && line("'\"") <= line("$")
-        exe "normal! g`\""
-    endif
-endfunc
+" Show linenumbers by default
+set number
 
 " Enable customized non-visible character display
 " http://vimcasts.org/episodes/show-invisibles/
-nnoremap <leader>l :set list!<CR>
+nnoremap <leader>L :set list!<CR>
+set listchars=tab:▸\ ,eol:¬
+set list " Activate display of invisibles by default
+
+" Allow usage of all colors instead of only the terminal ones
+set t_Co=256
+let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+set background=light
+colorscheme solarized
+call togglebg#map("<leader>D")
+
+syntax enable
+colorscheme solarized
+
+" Restore line number and column if reentering a file after having edited it
+" at least once. For this to work .viminfo in the home dir has to be writable by the user.
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+" Configure the search operations to be more user friendly
+" Search case insensitive if all search chars are lowercase but switch to case
+" sensitive search if at least one char is uppercase
+set ignorecase
+set smartcase
+" Display matched pattern while searching
+set incsearch
+" Highlight all matching occurances
+set hlsearch
+" Allow the usage of <leader><SPACE> to hide highlighted search results after
+" the required occurance has been located
+nnoremap <silent><leader><space> :nohlsearch<cr>
 
 " Save file as root using sudo
-cnoremap w!! w !sudo tee % >/dev/null
+" Definition of a new command does not work because of the two exclamation
+" marks
+:cnoremap w!! w !sudo tee % >/dev/null
 
-" Alias common w/q misspells to their right meaning
-command WQ wq
-command Wq wq
-command W w
-command Q q
+" Configure textwrapping options
+set wrap
+set textwidth=79
+" These format options include the wrapping of all text (t) by default. This
+" includes program source code if editing a programming language. The according
+" ftplugin configs should set a more usable configuration for this.
+set formatoptions=qrocnt1
+
+" ReWrap the current paragraph of test using <leader>q
+nnoremap <leader>q gqip
 
 " MovingThroughCamelCaseWords
 nnoremap <silent><C-Left>  :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
@@ -214,12 +189,14 @@ nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR> 
 
-" Toggle paste with <ins>
-set pastetoggle=<ins>
-" Go to insert mode when <ins> pressed in normal mode
-nnoremap <silent> <ins> :setlocal paste!<CR>i
 " Switch paste mode off whenever insert mode is left
 autocmd InsertLeave <buffer> setlocal nopaste
+
+" Map <leader>i to activate pastemode
+noremap <silent> <leader>i :call pastemode#EnterPasteMode()<CR>
+
+" Map <leader>W to toggle whitespacetrail
+noremap <silent> <leader>W :call whitespacetrail#ToggleWhitespaceTrail()<CR>
 
 " Twig template highlighting
 autocmd BufRead *.twig set filetype=twig
@@ -227,31 +204,14 @@ autocmd BufRead *.html.twig set filetype=htmltwig
 " Handle *.phps as PHP files
 au BufRead,BufNewFile *.phps		set filetype=php
 
-" VIMTips
-let g:vimtip_tips = []
-call add(g:vimtip_tips, "Re-indent code: <=>")
-call add(g:vimtip_tips, "Indent inner / outer block: >iB / >aB")
-call add(g:vimtip_tips, ":r <file> paste the given file at the current position")
-call add(g:vimtip_tips, "<s><char><char> jump to next 2 char search")
-call add(g:vimtip_tips, "<v><v><v>... expands visual region!")
-call add(g:vimtip_tips, "<c><i><a> = change inner argument")
-call add(g:vimtip_tips, "<c><a><a> = change outer argument")
-call add(g:vimtip_tips, "<C-l>/<C-h> = move arguments left/right")
-
-autocmd VimEnter * call vimtip#NextTip()
-autocmd WinEnter * call vimtip#NextTip()
-
 " Undo history between sessions
 set undodir=~/.vim/undodir
 set undofile
-set undolevels=100 "maximum number of changes that can be undone
-set undoreload=1000 "maximum number lines to save for undo on a buffer reload
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 " Colored column (to see line size violations)
 set colorcolumn=80
-
-" Edit Files relativ to me
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " Enhance Omnicompletion
 " http://vim.wikia.com/wiki/VimTip1386
@@ -269,11 +229,11 @@ let g:syntastic_html_checkers=['tidy']
 let g:pasta_disabled_filetypes = ["tex"]
 
 " Configure Ultisnips
-let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsListSnippets = "<M-Tab>"
+"let g:UltiSnipsExpandTrigger = "<Tab>"
+"let g:UltiSnipsListSnippets = "<M-Tab>"
 " Set a custom snippets directory
-let g:UltiSnipsSnippetsDir = $HOME . "/.vim/ultisnips/"
-let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+"let g:UltiSnipsSnippetsDir = $HOME . "/.vim/ultisnips/"
+"let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 " Completion options
 set completeopt=menu,preview
@@ -283,10 +243,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " Post private Gists by default
 let g:gist_post_private = 1
 
-" <C-P> is already PDV so <leader>o is used for CtrlP file finder
-let g:ctrlp_map = "<leader>o"
-" Use regex search in CtrlP by default (switch off, we want to use fuzzzzy!)
-" let g:ctrlp_regexp = 1
+" CTRL-P
 set wildignore+=cache,src/var,src/data,.abc,build
 " Ignore VCS dirs (copied from docs)
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|vendor)$'
@@ -306,9 +263,6 @@ nnoremap <C-k> <C-b>
 " Jump to next/prev start of method
 nnoremap <C-m> ]m
 nnoremap <C-S-m> [m
-
-" Activate argument rewrap
-nnoremap <leader>w :call argumentrewrap#RewrapArguments()<CR>
 
 " Expand region with v-v-v...
 vmap v <Plug>(expand_region_expand)
@@ -336,16 +290,16 @@ nmap <Leader>P "*P
 vmap <Leader>p "*p
 vmap <Leader>P "*P
 
-" Argument move & argument text object
-nnoremap <c-h> :SidewaysLeft<cr>
-nnoremap <c-l> :SidewaysRight<cr>
+" Create directory on save if it does not exist
+" http://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
+augroup BWCCreateDir
+    au!
+    autocmd BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+augroup END
 
-omap aa <Plug>SidewaysArgumentTextobjA
-xmap aa <Plug>SidewaysArgumentTextobjA
-omap ia <Plug>SidewaysArgumentTextobjI
-xmap ia <Plug>SidewaysArgumentTextobjI
-
-" phpcomplete-extended
-
-let g:phpcomplete_index_composer_command = 'composer'
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+" Source .vimlocalrc file if it is available on the system 
+" !! THIS DIRECTIVE NEEDS TO BE LAST COMMAND IN THIS FILE TO ENSURE ALL !!
+" !! CONFIGURATION OPTIONS MAY BE OVERRIDDEN !!
+if filereadable( $HOME . "/.vimlocalrc" )
+    source ~/.vimlocalrc
+endif
