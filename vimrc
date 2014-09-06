@@ -222,6 +222,10 @@ map <F5> :setlocal spell! spelllang=en_us<cr>
 " Map <F6> to turn spelling (de) on (VIM 7.0+)
 map <F6> :setlocal spell! spelllang=de<cr>
 
+" Syntastic configuration
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
 " Disable w3 syntax chcker. Horribly annoying on slow connections
 let g:syntastic_html_checkers=['tidy']
 
