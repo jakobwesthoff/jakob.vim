@@ -40,6 +40,9 @@ Bundle 'terryma/vim-expand-region'
 " Advanced Keyword completion
 Bundle 'szw/vim-kompleter'
 
+" Pastemode
+Bundle 'jakobwesthoff/pastemode'
+
 " Pasting Gists from VIM
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
