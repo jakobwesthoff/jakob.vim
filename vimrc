@@ -14,14 +14,14 @@ Bundle 'gmarik/vundle'
 " "Sensible" defaults?
 Bundle "tpope/vim-sensible"
 
-" ... register Vundle bundles
-
 " Display trailing whitespaces
 Bundle 'jakobwesthoff/whitespacetrail'
 " Fancy snippet machine
 " Bundle 'SirVer/ultisnips'
 " Nice title bar
 Plugin 'bling/vim-airline'
+" Git integration (needed for airline)
+Plugin 'tpope/vim-fugitive'
 " Syntax checks
 Bundle 'scrooloose/syntastic'
 " Abbreviate and convenient substitute
@@ -187,7 +187,7 @@ nnoremap <leader>q gqip
 nnoremap <silent><C-Left>  :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
-inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR> 
+inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 
 " Switch paste mode off whenever insert mode is left
 autocmd InsertLeave <buffer> setlocal nopaste
@@ -300,7 +300,7 @@ augroup BWCCreateDir
     autocmd BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
 augroup END
 
-" Source .vimlocalrc file if it is available on the system 
+" Source .vimlocalrc file if it is available on the system
 " !! THIS DIRECTIVE NEEDS TO BE LAST COMMAND IN THIS FILE TO ENSURE ALL !!
 " !! CONFIGURATION OPTIONS MAY BE OVERRIDDEN !!
 if filereadable( $HOME . "/.vimlocalrc" )
