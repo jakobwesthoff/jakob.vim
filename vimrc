@@ -21,7 +21,7 @@ Bundle 'jakobwesthoff/whitespacetrail'
 " Fancy snippet machine
 " Bundle 'SirVer/ultisnips'
 " Nice title bar
-" Bundle 'Lokaltog/vim-powerline'
+Plugin 'bling/vim-airline'
 " Syntax checks
 Bundle 'scrooloose/syntastic'
 " Abbreviate and convenient substitute
@@ -234,6 +234,9 @@ let g:pasta_disabled_filetypes = ["tex"]
 " Set a custom snippets directory
 "let g:UltiSnipsSnippetsDir = $HOME . "/.vim/ultisnips/"
 "let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+
+" Configure airline
+let g:airline_powerline_fonts = 1
 
 " Completion options
 set completeopt=menu,preview

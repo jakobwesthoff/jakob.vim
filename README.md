@@ -29,6 +29,11 @@ Alternatively you can execute the following in VIM itself:
 :BundleInstall
 ```
 
+## Airline/Powerline Fonts
+
+Pre patched fonts for the Airline/Powerline bar can be found here:
+https://github.com/Lokaltog/powerline-fonts
+
 ## Thanks for inspirations to
 
 -   Tobias Schlitt (<https://github.com/tobyS>)
