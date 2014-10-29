@@ -23,7 +23,7 @@ Plugin 'bling/vim-airline'
 " Git integration (needed for airline)
 Plugin 'tpope/vim-fugitive'
 " Syntax checks
-Bundle 'scrooloose/syntastic'
+" Bundle 'scrooloose/syntastic'
 " Abbreviate and convenient substitute
 Bundle 'tpope/vim-abolish'
 " Solarized color scheme
@@ -38,7 +38,7 @@ Bundle 'sickill/vim-pasta'
 Bundle 'terryma/vim-expand-region'
 
 " Advanced Keyword completion
-Bundle 'szw/vim-kompleter'
+" Bundle 'szw/vim-kompleter'
 
 " Pastemode
 Bundle 'jakobwesthoff/pastemode'
@@ -48,7 +48,7 @@ Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 
 " Approximate colorschemes
-" "Bundle 'godlygeek/csapprox'
+" Bundle 'godlygeek/csapprox'
 
 " Fuzzy search through project files
 Bundle 'kien/ctrlp.vim'
