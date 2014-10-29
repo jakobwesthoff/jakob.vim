@@ -59,6 +59,9 @@ Bundle 'kien/ctrlp.vim'
 " See if that fixes YAML highlighting
 Bundle 'chase/vim-ansible-yaml'
 
+" Support Dockerfiles Syntax
+Bundle 'ekalinin/Dockerfile.vim'
+
 " Required after Vundle did its job.
 filetype plugin indent on
 
