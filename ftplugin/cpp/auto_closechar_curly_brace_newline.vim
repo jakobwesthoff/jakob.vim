@@ -1,1 +1,0 @@
-../modules/auto_closechar_curly_brace_newline.vim
