@@ -19,7 +19,8 @@ Bundle 'jakobwesthoff/whitespacetrail'
 " Fancy snippet machine
 " Bundle 'SirVer/ultisnips'
 " Nice title bar
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Git integration (needed for airline)
 Plugin 'tpope/vim-fugitive'
 " Syntax checks
