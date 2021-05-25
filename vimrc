@@ -312,6 +312,10 @@ augroup BWCCreateDir
     autocmd BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
 augroup END
 
+" Always set cursor to the top of the file when GIT MESSAGE is edited, instead
+" of using the 'remembered' position
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
 " Source .vimlocalrc file if it is available on the system
 " !! THIS DIRECTIVE NEEDS TO BE LAST COMMAND IN THIS FILE TO ENSURE ALL !!
 " !! CONFIGURATION OPTIONS MAY BE OVERRIDDEN !!
