@@ -150,12 +150,13 @@ set list " Activate display of invisibles by default
 " Allow usage of all colors instead of only the terminal ones
 set t_Co=256
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-set background=light
-colorscheme solarized
-call togglebg#map("<leader>D")
+set background=dark
+"colorscheme solarized
+colorscheme cobalt2
+"call togglebg#map("<leader>D")
 
 syntax enable
-colorscheme solarized
+""colorscheme solarized
 
 " Restore line number and column if reentering a file after having edited it
 " at least once. For this to work .viminfo in the home dir has to be writable by the user.
